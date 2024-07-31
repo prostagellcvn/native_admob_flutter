@@ -52,7 +52,7 @@ class InterstitialAdController(
                         result.success(true)
                     }
 
-                    override fun onAdFailedToShowFullScreenContent(error: AdError?) {
+                    override fun onAdFailedToShowFullScreenContent(error: AdError) {
                         channel.invokeMethod("onAdFailedToShowFullScreenContent", encodeError(error))
                         result.success(false)
                     }

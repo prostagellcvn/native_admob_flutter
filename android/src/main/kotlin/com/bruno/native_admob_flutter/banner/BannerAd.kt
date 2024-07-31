@@ -59,7 +59,7 @@ class BannerAdView(context: Context, data: Map<String?, Any?>?) : PlatformView {
 
             override fun onAdLoaded() {
                 super.onAdLoaded()
-                controller.channel.invokeMethod("onAdLoaded", controller.adView!!.adSize.height)
+                controller.channel.invokeMethod("onAdLoaded", controller.adView!!.adSize?.height)
                 result?.success(true)
             }
         }
@@ -69,8 +69,11 @@ class BannerAdView(context: Context, data: Map<String?, Any?>?) : PlatformView {
         controller.adView = AdView(context)
         val width: Int = (data!!["size_width"] as Double).toInt()
         val height: Int = (data["size_height"] as Double).toInt()
-        if (height != -1) controller.adView!!.adSize = AdSize(width, height)
-        else controller.adView!!.adSize = adSize
+        if (height != -1) {
+            controller.adView!!.setAdSize(AdSize(width, height))
+        } else {
+            controller.adView!!.setAdSize(adSize)
+        }
         controller.adView!!.adUnitId = data["unitId"] as String
     }
 

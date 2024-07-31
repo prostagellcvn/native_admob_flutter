@@ -77,8 +77,8 @@ class NativeAdmobController(
                     nativeAd!!.setMuteThisAdListener {
                         channel.invokeMethod("onAdMuted", null)
                     }
-                    if (nativeAd!!.mediaContent.hasVideoContent()) {
-                        nativeAd!!.mediaContent.videoController.videoLifecycleCallbacks =
+                    if (nativeAd!!.mediaContent != null && nativeAd!!.mediaContent!!.hasVideoContent()) {
+                        nativeAd!!.mediaContent?.videoController?.videoLifecycleCallbacks =
                                 object : VideoController.VideoLifecycleCallbacks() {
                                     override fun onVideoStart() {
                                         channel.invokeMethod("onVideoStart", null)
@@ -120,9 +120,9 @@ class NativeAdmobController(
                                         "isCustomMuteThisAdEnabled" to nativeAd!!.isCustomMuteThisAdEnabled
                                 ),
                                 "mediaContent" to hashMapOf(
-                                        "duration" to mediaContent.duration.toDouble(),
-                                        "aspectRatio" to mediaContent.aspectRatio.toDouble(),
-                                        "hasVideoContent" to mediaContent.hasVideoContent()
+                                        "duration" to mediaContent?.duration?.toDouble(),
+                                        "aspectRatio" to mediaContent?.aspectRatio?.toDouble(),
+                                        "hasVideoContent" to mediaContent?.hasVideoContent()
                                 ),
                                 "adDetails" to hashMapOf(
                                         "headline" to nativeAd!!.headline,

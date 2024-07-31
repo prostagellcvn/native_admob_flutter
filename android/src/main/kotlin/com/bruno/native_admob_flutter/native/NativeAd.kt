@@ -286,7 +286,9 @@ class NativeAdPlatformView(context: Context, data: Map<String?, Any?>?) : Platfo
         if (nativeAd == null) return
 
         // Some assets are guaranteed to be in every UnifiedNativeAd.
-        adMedia?.setMediaContent(nativeAd.mediaContent)
+        nativeAd.mediaContent?.let {
+            adMedia?.setMediaContent(it)
+        }
         adMedia?.setImageScaleType(ImageView.ScaleType.FIT_CENTER)
 
         adHeadline?.text = nativeAd.headline
